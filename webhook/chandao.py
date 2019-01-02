@@ -31,4 +31,4 @@ def action(data, user_dict, title):
         k = item
         v = data[item]
         message = u"%s - %s : %s\n\n" % (message, k, v)
-    return title, message
+    return title, message, at_list

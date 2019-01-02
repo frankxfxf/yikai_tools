@@ -25,11 +25,11 @@ def _do_data(data, url_cate, action, project_name, project_guid, todos_title):
     :return:
     """
     message = u""
-    todo = data["todo"]
-    updated_at = utc_to_local(todo["updated_at"], "%Y-%m-%dT%H:%M:%S.%fZ")
-    todo_title = todo["title"]
+    print data
+    updated_at = utc_to_local(data["updated_at"], "%Y-%m-%dT%H:%M:%S.%fZ")
+    todo_title = data["title"]
 
-    todo_guid = todo["guid"]
+    todo_guid = data["guid"]
     url = "https://tower.im/projects/%s/%s/%s/" % (project_guid, url_cate, todo_guid)
 
     message += u"操作：" + action + u"\n\n"
@@ -44,12 +44,12 @@ def _do_data(data, url_cate, action, project_name, project_guid, todos_title):
     message += u"标题：" + todo_title + u"\n\n"
 
     # 任务独有
-    todo_handler = todo.get("handler")
+    todo_handler = data.get("handler")
     if type(todo_handler) is dict:
         todo_handler_nickname = todo_handler["nickname"]
         message += u"创建人：" + todo_handler_nickname + u"\n\n"
 
-    todo_assignee = todo.get("assignee")
+    todo_assignee = data.get("assignee")
     if type(todo_assignee) is dict:
         todo_assignee_nickname = todo_assignee["nickname"]
         message += u"安排人：" + todo_assignee_nickname + u"\n\n"
@@ -64,8 +64,8 @@ def todo(data, title=u"tower 通知"):
     project_guid = data["project"]["guid"]
 
     if data.has_key("todolist"):
-        data = u"任务"
-        todos_title = data["title"]
+        todos_title = u"任务"
+        data = data["todo"]
         url_cate = "todos"
     elif data.has_key("document"):
         todos_title = u"文档"
