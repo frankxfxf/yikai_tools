@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name='yikai-tools',
-    version='1.0.5',
+    version='1.0.6',
     description='python modules.',
     long_description=long_description,
     url='https://github.com/happyshi0402/yikai_tools.git',

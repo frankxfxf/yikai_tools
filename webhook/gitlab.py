@@ -38,6 +38,7 @@ wsf 推送代码到 分支 master
     commits_list = data["commits"]
     ref = str(data["ref"]).replace("refs/heads/", "")
     i = 0
+    user_name = data["user_name"]
     for commit in commits_list:
         i += 1
         message = commit["message"]
@@ -52,7 +53,7 @@ wsf 推送代码到 分支 master
                                     (id, url, i, url, message,
                                      utc_to_local(str_to_date(timestamp), "%Y-%m-%dT%H:%M:%SZ"),
                                      author_name))
-    title = u"%s %s 分支 %s\n" % (author_name, push_event, ref)
+    title = u"%s %s 分支 %s\n" % (user_name, push_event, ref)
     message = u"# %s\n ## 系统：%s\n ## 内容：\n\n %s" % \
               (title, repository_name, "".join(commit_message_lists))
     return title, message
